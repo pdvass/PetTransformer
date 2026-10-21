@@ -1,0 +1,9 @@
+---
+# Pick a preset: LLVM, Google, Chromium, Mozilla, WebKit, Microsoft, GNU.
+# Preview one without changing files:  clang-format --style=Google src/tokenizers/wordpiece.cpp
+BasedOnStyle: LLVM
+
+# Overrides. Delete a line to use the preset's value.
+# All options: https://clang.llvm.org/docs/ClangFormatStyleOptions.html
+
+...

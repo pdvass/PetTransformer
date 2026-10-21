@@ -1,0 +1,14 @@
+# Build output
+build*/
+bin/
+
+# Local tooling and editor settings
+.cache/
+.vscode/
+
+# Datasets: download separately (see README). The toy corpus is tracked.
+data/*
+!data/testfile.txt
+
+# Generated vocabularies
+*_vocab.txt

@@ -1,0 +1,57 @@
+---
+# Broad set of checks, as used in well-maintained C++ projects.
+# Whole groups are enabled; the few exclusions below are style opinions or pure noise.
+# See NOTES.md ("C++ Issues To Study") for the topics behind the warnings.
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  concurrency-*,
+  cppcoreguidelines-*,
+  misc-*,
+  modernize-*,
+  performance-*,
+  portability-*,
+  readability-*,
+  -bugprone-easily-swappable-parameters,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers,
+  -modernize-use-trailing-return-type,
+  -readability-identifier-length,
+  -readability-braces-around-statements,
+  -misc-no-recursion,
+  -misc-const-correctness,
+  -portability-avoid-pragma-once,
+  -readability-qualified-auto,
+  -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access
+
+# Excluded, and why:
+#   easily-swappable-parameters  flags every function with two params of the same type
+#   magic-numbers                too noisy for ML code full of constants
+#   use-trailing-return-type     `auto f() -> int` everywhere is a style choice
+#   identifier-length            flags `i`, `it`, `c` in loops
+#   braces-around-statements     style choice
+#   no-recursion                 encode_word is recursive on purpose
+#   const-correctness            wants `const` on every local variable; very noisy
+#   avoid-pragma-once            #pragma once is supported by every major compiler
+#   qualified-auto               wants `auto *p` instead of `auto p`; style choice
+#   avoid-unchecked-container-access  flags every v[i]; unworkable for numeric/tensor code
+
+CheckOptions:
+  # Naming, matching the style the code already mostly uses.
+  - { key: readability-identifier-naming.ClassCase,               value: CamelCase  }
+  - { key: readability-identifier-naming.StructCase,              value: CamelCase  }
+  - { key: readability-identifier-naming.FunctionCase,            value: lower_case }
+  - { key: readability-identifier-naming.MethodCase,              value: lower_case }
+  - { key: readability-identifier-naming.VariableCase,            value: lower_case }
+  - { key: readability-identifier-naming.ParameterCase,           value: lower_case }
+  - { key: readability-identifier-naming.MemberCase,              value: lower_case }
+  - { key: readability-identifier-naming.GlobalConstantCase,      value: UPPER_CASE }
+  - { key: readability-identifier-naming.TemplateParameterCase,   value: CamelCase  }
+  # Allow the `_` placeholder in structured bindings.
+  - { key: readability-identifier-naming.VariableIgnoredRegexp,   value: '^_$' }
+
+# Only report problems in this project's files, not in the standard library or doctest.
+HeaderFilterRegex: '.*pet_transformer[/\\](include|src|tests|metrics)[/\\].*'
+...
